@@ -1,0 +1,39 @@
+<app-theme-switch class="theme-switch"></app-theme-switch>
+
+<div class="auth__container">
+  <h2 class="auth__title">Login</h2>
+
+  <form (ngSubmit)="login()" #loginForm="ngForm" class="auth__form">
+    <input
+      [(ngModel)]="email"
+      name="email"
+      placeholder="Email"
+      type="email"
+      required
+      class="auth__input"
+    />
+
+    <div class="auth__input-wrapper">
+      <input
+        [(ngModel)]="password"
+        name="password"
+        placeholder="Senha"
+        [type]="showPassword ? 'text' : 'password'"
+        required
+        class="auth__input"
+      />
+      <button
+        type="button"
+        class="password-toggle"
+        (click)="toggleShowPassword()"
+        [attr.aria-label]="showPassword ? 'Esconder senha' : 'Mostrar senha'"
+      >
+        {{ showPassword ? '🙈' : '👁️' }}
+      </button>
+    </div>
+
+    <button type="submit" class="auth__button">Entrar</button>
+  </form>
+
+  <p class="auth__link"><a routerLink="/auth/register">Criar conta</a></p>
+</div>

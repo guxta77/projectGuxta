@@ -1,0 +1,12 @@
+<div class="theme-switch-wrapper">
+  <label class="theme-switch" for="checkbox">
+    <input
+      type="checkbox"
+      id="checkbox"
+      (change)="toggleDarkTheme($event)"
+      [checked]="isDarkMode"
+    />
+    <div class="slider"></div>
+  </label>
+  <span>{{ isDarkMode ? '🌙' : '🌞' }}</span>
+</div>

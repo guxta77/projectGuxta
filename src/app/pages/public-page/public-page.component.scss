@@ -1,0 +1,116 @@
+.theme-switch {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul {
+  list-style: none;
+}
+
+body {
+  background-position: top center;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-color: #011837;
+}
+
+body * {
+  font-family: 'Inter', sans-serif;
+  font-weight: 160%;
+}
+
+main {
+  max-width: 580px;
+  width: 90%;
+  margin: 32px auto;
+  display: grid;
+  gap: 24px;
+}
+
+section {
+  color: white;
+  background-image: linear-gradient(to left, #e6dada, #274046);
+  padding-top: 4px;
+  padding-right: 4px;
+  border-radius: 26px;
+  margin-top: 32px;
+}
+
+section div {
+  background-color: #2A2634;
+  padding: 32px;
+  padding-top: 24px;
+  border-radius: 24px;
+}
+
+section h2 {
+  letter-spacing: -0.47px;
+}
+
+section p {
+  letter-spacing: -0.18px;
+  color: #A1A1AA;
+}
+
+section ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+section ul li {
+  transition: transform 0.3s;
+}
+
+section ul li:hover {
+  transform: scale(1.3);
+}
+
+.movies-list img,
+.series-list img,
+.loading-list img {
+  width: 90px;
+  border-radius: 8px;
+  border: 2px solid #51359e;
+}
+
+footer {
+  color: white;
+  text-align: center;
+  animation: fromBottom 0.8s;
+}
+
+/* animation */
+
+main section {
+  animation: fromBottom 0.7s backwards;
+}
+
+main section:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+main section:nth-child(2),
+main section:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes fromBottom {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,1 +1,117 @@
-<p>teste salamaleiko</p>
+<app-theme-switch class="theme-switch"></app-theme-switch>
+<button class="btn-sair" (click)="logout()">Sair</button>
+
+<header>
+  <div>
+    <img 
+      src="https://github.com/guxta77.png" 
+      alt="Foto de Gustavo Trindade" />
+    </div>
+    <p>Olá, eu sou o <u>Gustavo Trindade!</u><br>Criei esse site como diversão, aproveite</p>
+</header>
+
+<div class="share-container">
+  <button class="share-button" (click)="toggleMenu()" aria-haspopup="true" [attr.aria-expanded]="menuAberto">
+    📤 Compartilhar
+    <span class="arrow" [class.open]="menuAberto">▾</span>
+  </button>
+  <div class="share-menu" *ngIf="menuAberto" role="menu" tabindex="-1">
+    <button class="share-menu-item" (click)="compartilharLink()" role="menuitem">
+      🔗 Compartilhar Link
+    </button>
+  </div>
+</div>
+
+
+
+<main>
+  <section>
+  <div>
+    <h2>Meus Filmes Favoritos!</h2>
+    <p>Filmes que eu gostei!</p>
+    <button class="adicionar" (click)="abrirModal('filme')">+ Adicionar Filme</button>
+    <ul class="movies-list">
+      <li *ngFor="let movie of filmesFavoritos">
+  <div class="item-container">
+    <button class="remover" (click)="removerItem('filme', movie)">×</button>
+    <a [href]="movie.link" target="_blank">
+      <img [src]="movie.capa" [alt]="movie.titulo" />
+    </a>
+  </div>
+</li>
+
+    </ul>
+  </div>
+</section>
+
+  <section>
+  <div>
+    <h2>Minhas Séries Favoritas!</h2>
+    <p>Séries que eu gostei!</p>
+    <button class="adicionar" (click)="abrirModal('serie')">+ Adicionar Série</button>
+    <ul class="series-list">
+      <li *ngFor="let serie of seriesFavoritas">
+  <div class="item-container">
+    <button class="remover" (click)="removerItem('serie', serie)">×</button>
+    <a [href]="serie.link" target="_blank">
+      <img [src]="serie.capa" [alt]="serie.titulo" />
+    </a>
+  </div>
+</li>
+    </ul>
+  </div>
+</section>
+
+  <section>
+  <div>
+    <h2>Séries e Filmes que ainda vou assistir</h2>
+    <p>Séries e Filmes incompletos</p>
+    <button class="adicionar" (click)="abrirModal('ambos')">+ Adicionar para Assistir</button>
+    <ul class="loading-list">
+      <li *ngFor="let item of listaParaAssistir">
+  <div class="item-container">
+    <button class="remover" (click)="removerItem('assistir', item)">×</button>
+    <a [href]="item.link" target="_blank">
+      <img [src]="item.capa" [alt]="item.titulo" />
+    </a>
+  </div>
+</li>
+    </ul>
+  </div>
+</section>
+
+  <section>
+    <div>
+      <h2>Redes socias do criador</h2>
+      <p>Venha me seguir nas redes!</p>
+      <ul class="social-list">
+        <li *ngFor="let rede of redesSociais">
+          <a [href]="rede.link" target="_blank" [innerHTML]="rede.icone"></a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+<div class="modal-overlay" *ngIf="modalAberto">
+  <div class="modal">
+    <h2 class="search-title">Buscar {{ tipoBusca === 'filme' ? 'Filme' : tipoBusca === 'serie' ? 'Série' : 'Filme ou Série' }}</h2>
+    <input
+    type="text"
+    [(ngModel)]="termoFilme"
+    (input)="buscarFilmesOuSeries()"
+    placeholder="Digite o nome"
+    class="input-custom"
+    />
+    <div class="resultados-container">
+    <ul *ngIf="resultadosFilmes.length > 0" class="resultados-list">
+      <li *ngFor="let item of resultadosFilmes" (click)="adicionarItem(item)">
+        <img [src]="'https://image.tmdb.org/t/p/w92' + (item.poster_path || item.backdrop_path)" [alt]="item.title || item.name" />
+        <span>{{ item.title || item.name }}</span>
+      </li>
+    </ul>
+    </div>
+    <button class="fechar" (click)="fecharModal()">Fechar</button>
+  </div>
+</div>
+
+</main>

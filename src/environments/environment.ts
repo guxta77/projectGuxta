@@ -7,5 +7,6 @@ export const environment = {
     storageBucket: "projectguxta.appspot.com",
     messagingSenderId: "513942433834",
     appId: "1:513942433834:web:7f9d081e1d3ba269c4d353",
-  }
+  },
+  tmdbBackendUrl: 'https://tmdb-backend-alpha.vercel.app/api/search',
 };

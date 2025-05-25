@@ -1,0 +1,97 @@
+<app-theme-switch class="theme-switch"></app-theme-switch>
+
+<div class="auth__container">
+  <h2 class="auth__title">Cadastro</h2>
+
+  <form (ngSubmit)="register()" #registerForm="ngForm" novalidate class="auth__form">
+
+    <input
+      [(ngModel)]="nickname"
+      name="nickname"
+      type="text"
+      placeholder="Apelido"
+      required
+      #nicknameField="ngModel"
+      class="auth__input"
+    />
+    <div *ngIf="nicknameField.invalid && nicknameField.touched" class="auth__error">
+      <div *ngIf="nicknameField.errors?.['required']">Apelido é obrigatório.</div>
+    </div>
+
+    <input
+      [(ngModel)]="email"
+      name="email"
+      type="email"
+      placeholder="Email"
+      required
+      email
+      #emailField="ngModel"
+      class="auth__input"
+    />
+    <div *ngIf="emailField.invalid && emailField.touched" class="auth__error">
+      <div *ngIf="emailField.errors?.['required']">Email é obrigatório.</div>
+      <div *ngIf="emailField.errors?.['email']">Email inválido.</div>
+    </div>
+
+    <!-- Campo Senha -->
+    <div class="auth__input-wrapper">
+      <input
+        [(ngModel)]="password"
+        name="password"
+        [type]="showPassword ? 'text' : 'password'"
+        placeholder="Senha"
+        required
+        minlength="6"
+        #passwordField="ngModel"
+        class="auth__input has-eye"
+      />
+      <button
+        type="button"
+        class="password-toggle"
+        (click)="toggleShowPassword()"
+        [attr.aria-label]="showPassword ? 'Esconder senha' : 'Mostrar senha'"
+      >
+        {{ showPassword ? '🙈' : '👁️' }}
+      </button>
+    </div>
+    <div *ngIf="passwordField.invalid && passwordField.touched" class="auth__error">
+      <div *ngIf="passwordField.errors?.['required']">Senha é obrigatória.</div>
+      <div *ngIf="passwordField.errors?.['minlength']">Senha deve ter no mínimo 6 caracteres.</div>
+    </div>
+
+    <!-- Campo Confirmar Senha -->
+    <div class="auth__input-wrapper">
+      <input
+        [(ngModel)]="confirmPassword"
+        name="confirmPassword"
+        [type]="showConfirmPassword ? 'text' : 'password'"
+        placeholder="Confirmar Senha"
+        required
+        #confirmPasswordField="ngModel"
+        class="auth__input has-eye"
+      />
+      <button
+        type="button"
+        class="password-toggle"
+        (click)="toggleShowConfirmPassword()"
+        [attr.aria-label]="showConfirmPassword ? 'Esconder senha' : 'Mostrar senha'"
+      >
+        {{ showConfirmPassword ? '🙈' : '👁️' }}
+      </button>
+    </div>
+
+    <div *ngIf="(confirmPasswordField.touched || submitted) && password !== confirmPassword" class="auth__error">
+      As senhas não coincidem.
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="registerForm.invalid || password !== confirmPassword"
+      class="auth__button"
+    >
+      Cadastrar
+    </button>
+  </form>
+
+  <p class="auth__link"><a routerLink="/auth/login">Já tenho conta</a></p>
+</div>

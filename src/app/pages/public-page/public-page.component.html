@@ -1,0 +1,43 @@
+<app-theme-switch class="theme-switch"></app-theme-switch>
+<h1 class="public-title">Lista de {{ displayName }}</h1>
+
+<main>
+  <section *ngIf="filmesFavoritos.length > 0">
+    <div>
+      <h2>Filmes Favoritos</h2>
+      <ul class="movies-list">
+        <li *ngFor="let movie of filmesFavoritos">
+          <a [href]="movie.link" target="_blank">
+            <img [src]="movie.capa" [alt]="movie.titulo" />
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section *ngIf="seriesFavoritas.length > 0">
+    <div>
+      <h2>Séries Favoritas</h2>
+      <ul class="series-list">
+        <li *ngFor="let serie of seriesFavoritas">
+          <a [href]="serie.link" target="_blank">
+            <img [src]="serie.capa" [alt]="serie.titulo" />
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section *ngIf="listaParaAssistir.length > 0">
+    <div>
+      <h2>Para Assistir</h2>
+      <ul class="loading-list">
+        <li *ngFor="let item of listaParaAssistir">
+          <a [href]="item.link" target="_blank">
+            <img [src]="item.capa" [alt]="item.titulo" />
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+</main>
