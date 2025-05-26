@@ -1,8 +1,14 @@
-.theme-switch {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
+.top-right-controls {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 90%;
+  max-width: 580px;
+  margin: 32px auto 0 auto;
 }
+
 
 * {
     margin: 0;
@@ -31,7 +37,7 @@ header{
     height: calc(120px + 32px);
     display: flex;
     flex-direction: column;
-
+    margin-bottom: 50px;
     align-items: center;
 }
 
@@ -430,3 +436,22 @@ main section:nth-child(3) {
     transform: scale(1);
   }
 }
+
+  .share-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+
+  .share-button {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+
+  .share-menu {
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
