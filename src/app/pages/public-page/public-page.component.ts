@@ -37,7 +37,7 @@ export class PublicPageComponent implements OnInit {
   }
 
   carregarDadosPublicos() {
-    const docRef = doc(this.firestore, `usuarios/${this.uid}`);
+    const docRef = doc(this.firestore, `usuarios/${this.uid}/publico/dados`);
     docData(docRef).subscribe(data => {
     if (data) {
       const d = data as DadosPublicos;
