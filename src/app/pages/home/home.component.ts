@@ -73,19 +73,35 @@ export class HomeComponent {
   }
 
   async ngOnInit() {
-    const user = this.auth.currentUser;
-    if (!user) return;
+  const user = this.auth.currentUser;
+  if (!user) return;
 
-    const userDoc = doc(this.firestore, `usuarios/${user.uid}`);
-    const docSnap = await getDoc(userDoc);
+  const userDoc = doc(this.firestore, `usuarios/${user.uid}`);
+  const publicDoc = doc(this.firestore, `usuarios/${user.uid}/publico/dados`);
 
-    if (docSnap.exists()) {
-      const data = docSnap.data();
-      this.filmesFavoritos = data['filmesFavoritos'] || [];
-      this.seriesFavoritas = data['seriesFavoritas'] || [];
-      this.listaParaAssistir = data['listaParaAssistir'] || [];
+  const [privateSnap, publicSnap] = await Promise.all([
+    getDoc(userDoc),
+    getDoc(publicDoc)
+  ]);
+
+  if (privateSnap.exists()) {
+    const data = privateSnap.data();
+    this.filmesFavoritos = data['filmesFavoritos'] || [];
+    this.seriesFavoritas = data['seriesFavoritas'] || [];
+    this.listaParaAssistir = data['listaParaAssistir'] || [];
+
+    if (!publicSnap.exists()) {
+      const publicData = {
+        displayName: user.displayName || '',
+        filmesFavoritos: this.limparLista(this.filmesFavoritos),
+        seriesFavoritas: this.limparLista(this.seriesFavoritas),
+        listaParaAssistir: this.limparLista(this.listaParaAssistir)
+      };
+      await setDoc(publicDoc, publicData, { merge: true });
     }
   }
+}
+
 
   abrirModal(tipo: 'filme' | 'serie' | 'ambos') {
     this.tipoBusca = tipo;
@@ -170,13 +186,18 @@ export class HomeComponent {
   const user = this.auth.currentUser;
   if (!user) return;
 
-  await setDoc(doc(this.firestore, `usuarios/${user.uid}`), {
+  const dados = {
     displayName: user.displayName || '',
     filmesFavoritos: this.limparLista(this.filmesFavoritos),
     seriesFavoritas: this.limparLista(this.seriesFavoritas),
     listaParaAssistir: this.limparLista(this.listaParaAssistir)
-  }, { merge: true });
+  };
+
+  await setDoc(doc(this.firestore, `usuarios/${user.uid}`), dados, { merge: true });
+
+  await setDoc(doc(this.firestore, `usuarios/${user.uid}/publico/dados`), dados, { merge: true });
 }
+
 
 
   private limparLista(lista: ItemLista[]): ItemLista[] {
